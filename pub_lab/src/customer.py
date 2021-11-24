@@ -13,11 +13,11 @@ class Customer:
         self.drink3 = Drink("Tea", 4, False)
         self.drinks_list = [self.drink1, self.drink2, self.drink3]
 
-    def reduce_wallet(self, amount):
-        self.wallet -= amount 
+    def reduce_wallet(self, amount, customer):
+        customer.wallet -= amount
 
-    def add_finished_drink(self, drink):
-        self.finished_drinks.append(drink)
+    def add_finished_drink(self, drink, customer):
+        customer.finished_drinks.append(drink)
 
     def check_alcohol_status(self, drink_name):
         for drink in self.drinks_list:
@@ -26,23 +26,37 @@ class Customer:
                     return True
                 else:
                     return False
+    
+    def buy_soft_drink(self, name_of_drink, pub, customer):
+        if self.check_alcohol_status(name_of_drink) == False:
+            for drink in pub.drinks_list:
+                if drink.name == name_of_drink:
+                    # pdb.set_trace()
+                    self.reduce_wallet(drink.price, customer)
+                    pub.increase_cash(drink.price)
+                    self.add_finished_drink(drink, customer)
+                    pub.remove_drink(drink)
+    
+
 
     def buy_drink(self, name_of_drink, pub, customer):
         if pub.check_age(customer):
             for drink in pub.drinks_list:
                 if drink.name == name_of_drink:
                     # pdb.set_trace()
-                    self.reduce_wallet(drink.price)
+                    self.reduce_wallet(drink.price, customer)
                     pub.increase_cash(drink.price)
-                    self.add_finished_drink(drink)
+                    self.add_finished_drink(drink, customer)
                     pub.remove_drink(drink)
-        elif pub.check_age(customer) == False and self.check_alcohol_status(name_of_drink) == False:
-            for drink in pub.drinks_list:
-                if drink.name == name_of_drink:
-                    # pdb.set_trace()
-                    self.reduce_wallet(drink.price)
-                    pub.increase_cash(drink.price)
-                    self.add_finished_drink(drink)
-                    pub.remove_drink(drink)
+                    
+        # elif pub.check_age(customer) == False:
+        #     # pdb.set_trace()
+        #     for drink in pub.drinks_list:
+        #         if drink.name == name_of_drink:
+        #             # pdb.set_trace()
+        #             self.reduce_wallet(drink.price)
+        #             pub.increase_cash(drink.price)
+        #             self.add_finished_drink(drink)
+        #             pub.remove_drink(drink)
         
 

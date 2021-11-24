@@ -13,6 +13,7 @@ class TestCustomer(unittest.TestCase):
         self.drinks_list = [self.drink1, self.drink2, self.drink3]
         self.customer = Customer("Joe", 500, 30)
         self.customer2 = Customer("Helen", 30, 16)
+        self.customer3 = Customer("Charlie", 50, 15)
         self.pub = Pub("The Prancing Pony", 100.00, self.drinks_list)
 
 
@@ -23,18 +24,30 @@ class TestCustomer(unittest.TestCase):
 
     def test_reduce_wallet(self):
         expected = 495
-        self.customer.reduce_wallet(5)
+        self.customer.reduce_wallet(5, self.customer)
         self.assertEqual(expected, self.customer.wallet)
+    
 
     def test_add_finished_drinks(self):
         expected = 1
-        self.customer.add_finished_drink(self.drink1)
-        self.assertEqual(expected, len(self.customer.finished_drinks))
+        self.customer.add_finished_drink(self.drink1, self.customer2)
+        self.assertEqual(expected, len(self.customer2.finished_drinks))
 
     def test_check_alcohol_status(self):
         expected = True
         result = self.customer.check_alcohol_status("Stella")
         self.assertEqual(expected, result)
+
+    def test_buy_soft_drink(self):
+        self.customer.buy_soft_drink("Tea", self.pub, self.customer3)
+        # reduce cash of customer
+        self.assertEqual(46, self.customer3.wallet)
+        # increase cash in till
+        self.assertEqual(104, self.pub.cash)
+        # increase customers finished drinks
+        self.assertEqual(1, len(self.customer3.finished_drinks))
+        # remove from pub drinks list
+        self.assertEqual(2, self.pub.drink_stock())
 
     def test_buy_drink(self):
         self.customer.buy_drink("Stella", self.pub, self.customer)
@@ -46,14 +59,27 @@ class TestCustomer(unittest.TestCase):
         self.assertEqual(1, len(self.customer.finished_drinks))
         # remove from pub drinks list
         self.assertEqual(2, self.pub.drink_stock())
+    
 
-    def test_buy_drink_underage_alcohol(self):
-        self.customer.buy_drink("Stella", self.pub, self.customer2)
-        # reduce cash of customer
-        self.assertEqual(30, self.customer2.wallet)
-        # increase cash in till
-        self.assertEqual(100, self.pub.cash)
-        # increase customers finished drinks
-        self.assertEqual(0, len(self.customer2.finished_drinks))
-        # remove from pub drinks list
-        self.assertEqual(3, self.pub.drink_stock())
+
+    # def test_buy_drink_underage_alcohol(self):
+    #     self.customer.buy_drink("Stella", self.pub, self.customer2)
+    #     # reduce cash of customer
+    #     self.assertEqual(30, self.customer2.wallet)
+    #     # increase cash in till
+    #     self.assertEqual(100, self.pub.cash)
+    #     # increase customers finished drinks
+    #     self.assertEqual(0, len(self.customer2.finished_drinks))
+    #     # remove from pub drinks list
+    #     self.assertEqual(3, self.pub.drink_stock())
+
+    # def test_buy_drink_underage_not_alcohol(self):
+    #     self.customer.buy_drink("Gin and Tonic", self.pub, self.customer3)
+    #     # reduce cash of customer
+    #     self.assertEqual(46, self.customer3.wallet)
+    #     # increase cash in till
+    #     self.assertEqual(104, self.pub.cash)
+    #     # increase customers finished drinks
+    #     self.assertEqual(1, len(self.customer3.finished_drinks))
+    #     # remove from pub drinks list
+    #     self.assertEqual(2, self.pub.drink_stock())
