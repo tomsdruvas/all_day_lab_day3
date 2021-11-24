@@ -37,6 +37,10 @@ class TestPub(unittest.TestCase):
         self.pub.add_drink(self.new_drink)
         self.assertEqual(4, self.pub.drink_stock())
 
+    def test_remove_drink(self):
+        self.pub.remove_drink(self.drink1)
+        self.assertEqual(2, self.pub.drink_stock())
+
 
 
 
