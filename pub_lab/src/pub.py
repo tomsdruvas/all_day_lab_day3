@@ -18,4 +18,3 @@ class Pub():
         for drink in self.drinks_list:
             if drink.name == drink_removed.name:
                 self.drinks_list.remove(drink)
-                
