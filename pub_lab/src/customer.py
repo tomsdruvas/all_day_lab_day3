@@ -36,6 +36,13 @@ class Customer:
                     pub.increase_cash(drink.price)
                     self.add_finished_drink(drink)
                     pub.remove_drink(drink)
-        # elif pub.check_age(customer) == False
+        elif pub.check_age(customer) == False and self.check_alcohol_status(name_of_drink) == False:
+            for drink in pub.drinks_list:
+                if drink.name == name_of_drink:
+                    # pdb.set_trace()
+                    self.reduce_wallet(drink.price)
+                    pub.increase_cash(drink.price)
+                    self.add_finished_drink(drink)
+                    pub.remove_drink(drink)
         
 

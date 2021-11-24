@@ -12,6 +12,7 @@ class TestCustomer(unittest.TestCase):
         self.drink3 = Drink("Tea", 4, False)
         self.drinks_list = [self.drink1, self.drink2, self.drink3]
         self.customer = Customer("Joe", 500, 30)
+        self.customer2 = Customer("Helen", 30, 16)
         self.pub = Pub("The Prancing Pony", 100.00, self.drinks_list)
 
 
@@ -45,3 +46,14 @@ class TestCustomer(unittest.TestCase):
         self.assertEqual(1, len(self.customer.finished_drinks))
         # remove from pub drinks list
         self.assertEqual(2, self.pub.drink_stock())
+
+    def test_buy_drink_underage_alcohol(self):
+        self.customer.buy_drink("Stella", self.pub, self.customer2)
+        # reduce cash of customer
+        self.assertEqual(30, self.customer2.wallet)
+        # increase cash in till
+        self.assertEqual(100, self.pub.cash)
+        # increase customers finished drinks
+        self.assertEqual(0, len(self.customer2.finished_drinks))
+        # remove from pub drinks list
+        self.assertEqual(3, self.pub.drink_stock())
