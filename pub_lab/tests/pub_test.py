@@ -31,7 +31,11 @@ class TestPub(unittest.TestCase):
     
     def test_drinks_stock(self):
         self.assertEqual(3, self.pub.drink_stock())
-        
+    
+    def test_add_drinks(self):
+        self.new_drink = Drink("Red Wine", 9, True)
+        self.pub.add_drink(self.new_drink)
+        self.assertEqual(4, self.pub.drink_stock())
 
 
 

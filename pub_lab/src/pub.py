@@ -10,3 +10,6 @@ class Pub():
 
     def drink_stock(self):
         return len(self.drinks_list)
+
+    def add_drink(self, new_drink):
+        self.drinks_list.append(new_drink)
