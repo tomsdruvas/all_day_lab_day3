@@ -11,7 +11,7 @@ class TestCustomer(unittest.TestCase):
         self.drink2 = Drink("Gin and Tonic", 6, True)
         self.drink3 = Drink("Tea", 4, False)
         self.drinks_list = [self.drink1, self.drink2, self.drink3]
-        self.customer = Customer("Joe", 500)
+        self.customer = Customer("Joe", 500, 30)
         self.pub = Pub("The Prancing Pony", 100.00, self.drinks_list)
 
 

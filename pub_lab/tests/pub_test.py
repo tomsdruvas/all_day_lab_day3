@@ -2,6 +2,7 @@ import unittest
 from unittest import result
 from src.pub import Pub
 from src.drink import Drink
+from src.customer import Customer
 
 
 class TestPub(unittest.TestCase):
@@ -12,6 +13,8 @@ class TestPub(unittest.TestCase):
         self.drink3 = Drink("Tea", 4, False)
         drinks_list = [self.drink1, self.drink2, self.drink3]
         self.pub = Pub("The Prancing Pony", 100.00, drinks_list)
+        self.customer = Customer("Joe", 500, 30)
+        self.customer2 = Customer("Beth", 30, 15)
 
     
     def test_pub_has_name(self):
@@ -46,6 +49,15 @@ class TestPub(unittest.TestCase):
         result = self.pub.return_drink_price(self.drink1.name)
         self.assertEqual(expected, result)
 
+    def test_check_customer_age_over_18(self):
+        expected = True
+        result = self.pub.check_age(self.customer)
+        self.assertEqual(expected, result)
+
+    def test_check_customer_age_under_18(self):
+        expected = False
+        result = self.pub.check_age(self.customer2)
+        self.assertEqual(expected, result)
 
 
 
