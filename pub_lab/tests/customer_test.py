@@ -30,8 +30,13 @@ class TestCustomer(unittest.TestCase):
         self.customer.add_finished_drink(self.drink1)
         self.assertEqual(expected, len(self.customer.finished_drinks))
 
+    def test_check_alcohol_status(self):
+        expected = True
+        result = self.customer.check_alcohol_status("Stella")
+        self.assertEqual(expected, result)
+
     def test_buy_drink(self):
-        self.customer.buy_drink("Stella", self.pub)
+        self.customer.buy_drink("Stella", self.pub, self.customer)
         # reduce cash of customer
         self.assertEqual(495, self.customer.wallet)
         # increase cash in till

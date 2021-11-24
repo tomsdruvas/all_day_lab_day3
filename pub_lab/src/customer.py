@@ -19,14 +19,23 @@ class Customer:
     def add_finished_drink(self, drink):
         self.finished_drinks.append(drink)
 
-    def buy_drink(self, name_of_drink, pub):
-        
-        for drink in pub.drinks_list:
-            if drink.name == name_of_drink:
-                # pdb.set_trace()
-                self.reduce_wallet(drink.price)
-                pub.increase_cash(drink.price)
-                self.add_finished_drink(drink)
-                pub.remove_drink(drink)
+    def check_alcohol_status(self, drink_name):
+        for drink in self.drinks_list:
+            if drink.name == drink_name:
+                if drink.alcohol_status:
+                    return True
+                else:
+                    return False
+
+    def buy_drink(self, name_of_drink, pub, customer):
+        if pub.check_age(customer):
+            for drink in pub.drinks_list:
+                if drink.name == name_of_drink:
+                    # pdb.set_trace()
+                    self.reduce_wallet(drink.price)
+                    pub.increase_cash(drink.price)
+                    self.add_finished_drink(drink)
+                    pub.remove_drink(drink)
+        # elif pub.check_age(customer) == False
         
 
