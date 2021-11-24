@@ -1,4 +1,5 @@
 import unittest
+from unittest import result
 from src.pub import Pub
 
 
@@ -16,5 +17,12 @@ class TestPub(unittest.TestCase):
         expected = 100
         result = self.pub.cash
         self.assertEqual(expected, result)
+    
+    def test_increase_cash(self):
+        expected = 150
+        self.pub.increase_cash(50)
+        self.assertEqual(expected, self.pub.cash)
+
+
 
     
