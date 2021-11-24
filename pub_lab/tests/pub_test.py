@@ -41,6 +41,11 @@ class TestPub(unittest.TestCase):
         self.pub.remove_drink(self.drink1)
         self.assertEqual(2, self.pub.drink_stock())
 
+    def test_return_drink_price(self):
+        expected = 5
+        result = self.pub.return_drink_price(self.drink1.name)
+        self.assertEqual(expected, result)
+
 
 
 

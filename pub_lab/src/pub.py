@@ -18,3 +18,8 @@ class Pub:
         for drink in self.drinks_list:
             if drink.name == drink_removed.name:
                 self.drinks_list.remove(drink)
+
+    def return_drink_price(self, drink_name):
+        for drink in self.drinks_list:
+            if drink.name == drink_name:
+                return drink.price
