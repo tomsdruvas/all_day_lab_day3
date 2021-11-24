@@ -1,5 +1,4 @@
 import unittest
-from unittest import result
 from src.customer import Customer
 
 class TestCustomer(unittest.TestCase):
@@ -14,5 +13,10 @@ class TestCustomer(unittest.TestCase):
 
     def test_reduce_wallet(self):
         expected = 495
-        result = self.customer.reduce_wallet(5)
-        self.assertEqual(expected, result)
+        self.customer.reduce_wallet(5)
+        self.assertEqual(expected, self.customer.wallet)
+
+    def test_add_finished_drinks(self):
+        expected = 1
+        self.customer.add_finished_drink(1)
+        self.assertEqual(expected, self.customer.finished_drinks)

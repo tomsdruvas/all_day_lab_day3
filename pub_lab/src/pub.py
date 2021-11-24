@@ -1,4 +1,4 @@
-class Pub():
+class Pub:
 
     def __init__(self, name, cash, drinks_list):
         self.name = name
