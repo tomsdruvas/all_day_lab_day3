@@ -7,13 +7,15 @@ from tests.pub_test import TestPub
 class TestCustomer(unittest.TestCase):
 
     def setUp(self):
-        self.drink1 = Drink("Stella", 5, True)
-        self.drink2 = Drink("Gin and Tonic", 6, True)
-        self.drink3 = Drink("Tea", 4, False)
+        self.drink1 = Drink("Stella", 5, True, 4)
+        self.drink2 = Drink("Gin and Tonic", 6, True, 4)
+        self.drink3 = Drink("Tea", 4, False, 0)
+        self.drink4 = Drink("Double Vodka", 10, True, 10)
         self.drinks_list = [self.drink1, self.drink2, self.drink3]
-        self.customer = Customer("Joe", 500, 30)
-        self.customer2 = Customer("Helen", 30, 16)
-        self.customer3 = Customer("Charlie", 50, 15)
+        self.customer = Customer("Joe", 500, 30, 5)
+        self.customer2 = Customer("Helen", 30, 16, 0)
+        self.customer3 = Customer("Charlie", 50, 15, 0)
+        self.customer4 = Customer("Tom", 50, 20, 9)
         self.pub = Pub("The Prancing Pony", 100.00, self.drinks_list)
 
 
@@ -37,6 +39,11 @@ class TestCustomer(unittest.TestCase):
         expected = True
         result = self.customer.check_alcohol_status("Stella")
         self.assertEqual(expected, result)
+    
+    def test_check_alcohol_level(self):
+        expected = 4
+        result = self.customer.get_alcohal_level("Stella")
+        self.assertEqual(expected, result)
 
     def test_buy_soft_drink(self):
         self.customer.buy_soft_drink("Tea", self.pub, self.customer3)
@@ -59,8 +66,6 @@ class TestCustomer(unittest.TestCase):
         self.assertEqual(1, len(self.customer.finished_drinks))
         # remove from pub drinks list
         self.assertEqual(2, self.pub.drink_stock())
-    
-
 
     def test_buy_drink_underage_alcohol(self):
         self.customer.buy_drink("Stella", self.pub, self.customer2)

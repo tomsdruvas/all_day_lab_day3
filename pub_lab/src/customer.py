@@ -3,14 +3,16 @@ from src.drink import Drink
 import pdb
 
 class Customer:
-    def __init__(self, name, wallet, age):
+    def __init__(self, name, wallet, age, drunkness):
         self.name = name
         self.wallet = wallet
         self.finished_drinks = []
         self.age = age
-        self.drink1 = Drink("Stella", 5, True)
-        self.drink2 = Drink("Gin and Tonic", 6, True)
-        self.drink3 = Drink("Tea", 4, False)
+        self.drunkness = drunkness
+        self.drink1 = Drink("Stella", 5, True, 4)
+        self.drink2 = Drink("Gin and Tonic", 6, True, 4)
+        self.drink3 = Drink("Tea", 4, False, 0)
+        self.drink4 = Drink("Double Vodka", 10, True, 10)
         self.drinks_list = [self.drink1, self.drink2, self.drink3]
 
     def reduce_wallet(self, amount, customer):
@@ -26,6 +28,10 @@ class Customer:
                     return True
                 else:
                     return False
+    def get_alcohal_level(self, drink_name):
+        for drink in self.drinks_list:
+            if drink.name == drink_name:
+                return drink.alcohol_level
     
     def buy_soft_drink(self, name_of_drink, pub, customer):
         if self.check_alcohol_status(name_of_drink) == False:

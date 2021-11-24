@@ -8,13 +8,14 @@ from src.customer import Customer
 class TestPub(unittest.TestCase):
     
     def setUp(self):
-        self.drink1 = Drink("Stella", 5, True)
-        self.drink2 = Drink("Gin and Tonic", 6, True)
-        self.drink3 = Drink("Tea", 4, False)
+        self.drink1 = Drink("Stella", 5, True, 3)
+        self.drink2 = Drink("Gin and Tonic", 6, True, 4)
+        self.drink3 = Drink("Tea", 4, False, 0)
+        self.drink4 = Drink("Double Vodka", 10, True, 10)
         drinks_list = [self.drink1, self.drink2, self.drink3]
         self.pub = Pub("The Prancing Pony", 100.00, drinks_list)
-        self.customer = Customer("Joe", 500, 30)
-        self.customer2 = Customer("Beth", 30, 15)
+        self.customer = Customer("Joe", 500, 30, 5)
+        self.customer2 = Customer("Beth", 30, 15, 0)
 
     
     def test_pub_has_name(self):
@@ -36,7 +37,7 @@ class TestPub(unittest.TestCase):
         self.assertEqual(3, self.pub.drink_stock())
     
     def test_add_drinks(self):
-        self.new_drink = Drink("Red Wine", 9, True)
+        self.new_drink = Drink("Red Wine", 9, True, 5)
         self.pub.add_drink(self.new_drink)
         self.assertEqual(4, self.pub.drink_stock())
 
