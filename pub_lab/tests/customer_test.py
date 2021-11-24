@@ -12,4 +12,7 @@ class TestCustomer(unittest.TestCase):
         result = self.customer.finished_drinks
         self.assertEqual(expected, result)
 
-    
+    def test_reduce_wallet(self):
+        expected = 495
+        result = self.customer.reduce_wallet(5)
+        self.assertEqual(expected, result)
